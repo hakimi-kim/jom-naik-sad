@@ -4,33 +4,33 @@
 
   let email = $state('');
   let password = $state('');
+  let confirmPassword = $state('');
+  
 
-  function handleLogin(e: SubmitEvent) {
+  function handleRegister(e: SubmitEvent) {
     e.preventDefault();
-    goto('/dashboard');
+    goto('/login');
   }
 </script>
 
-<svelte:head><title>IIUM Ride – Sign In</title></svelte:head>
+<svelte:head><title>IIUM Ride – Register</title></svelte:head>
 
 <div class="flex min-h-screen flex-col items-center justify-center bg-gradient-soft px-4">
   <div class="mx-auto w-full max-w-md animate-fade-in py-12">
 
     <div class="mb-8 flex flex-col items-center text-center">
       <div class="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-hero shadow-elevated">
-      <div class="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-hero shadow-elevated">
         <Car class="w-5 h-5"/>
-      </div>
       </div>
       <h1 class="text-3xl font-bold tracking-tight text-foreground">IIUM Ride</h1>
       <p class="mt-2 text-sm text-muted-foreground">Safe, transparent campus ride-sharing</p>
     </div>
 
     <div class="rounded-3xl bg-card p-6 shadow-elevated sm:p-8">
-      <h2 class="text-xl font-semibold text-foreground">Log In</h2>
-      <p class="mt-1 text-sm text-muted-foreground">Sign in with your student credentials and password</p>
+      <h2 class="text-xl font-semibold text-foreground">Register</h2>
+      <p class="mt-1 text-sm text-muted-foreground">Sign up with your student credentials and password</p>
 
-      <form onsubmit={handleLogin} class="mt-6 space-y-4">
+      <form onsubmit={handleRegister} class="mt-6 space-y-4">
         <div class="space-y-4">
           <div class="space-y-2">
             <label for="email" class="block text-sm font-medium text-foreground">Student ID or Email</label>
@@ -52,18 +52,28 @@
               class="h-12 w-full rounded-xl border border-input bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition"
             />
           </div>
+
+          <div class="space-y-2">
+            <label for="confirm-password" class="block text-sm font-medium text-foreground">Confirm Password</label>
+            <input
+              id="confirm-password"
+              type="password"
+              bind:value={confirmPassword}
+              class="h-12 w-full rounded-xl border border-input bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition"
+            />
+          </div>
         </div>
 
         <button
           type="submit"
           class="h-12 w-full rounded-xl bg-gradient-hero text-base font-semibold text-white shadow-card hover:opacity-95 transition-opacity"
         >
-          Log In 
+          Register 
         </button>
       </form>
 
       <p class="mt-4 block text-center text-sm text-muted-foreground">
-        Don't have an account? <a href="/register" class="hover:text-blue-600 text-black underline">Sign up</a>
+        Already have an account? <a href="/login" class="hover:text-blue-600 text-black underline">Sign in</a>
       </p>
       <p class="mt-4 text-center text-xs text-muted-foreground">
         By continuing you agree to our community ride-safety guidelines.
