@@ -7,24 +7,19 @@
 
   function handleLogin(e: SubmitEvent) {
     e.preventDefault();
-    goto('/dashboard');
-  }
-
-  function handleSubmit(e: SubmitEvent) {
-    e.preventDefault();
 
     if (email === 'admin@iium.edu.my' || email === 'admin') {
       // goto('/admin/dashboard');
-      goto('/dashboard');
+      goto('/admin-dashboard');
 
     } else if (email.startsWith('driver')) {
       // e.g. driver@iium.edu.my or driverID
       // goto('/driver/dashboard');
-      goto('/dashboard');
+      goto('/driver-dashboard');
 
     } else {
       // default: passenger
-      goto('/dashboard');
+      goto('/passenger-dashboard');
     }
   }
 </script>
