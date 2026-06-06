@@ -9,6 +9,24 @@
     e.preventDefault();
     goto('/dashboard');
   }
+
+  function handleSubmit(e: SubmitEvent) {
+    e.preventDefault();
+
+    if (email === 'admin@iium.edu.my' || email === 'admin') {
+      // goto('/admin/dashboard');
+      goto('/dashboard');
+
+    } else if (email.startsWith('driver')) {
+      // e.g. driver@iium.edu.my or driverID
+      // goto('/driver/dashboard');
+      goto('/dashboard');
+
+    } else {
+      // default: passenger
+      goto('/dashboard');
+    }
+  }
 </script>
 
 <svelte:head><title>IIUM Ride – Sign In</title></svelte:head>
