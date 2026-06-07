@@ -3,6 +3,7 @@
   import AppHeader from '$lib/components/AppHeader.svelte';
   import { ArrowLeft, ShieldCheck, Clock, Users } from 'lucide-svelte';
   import { activeRide } from '$lib/stores/rideState';
+  import { showToast } from '$lib/toast';
 
   let bidOpen = $state(false);
   let bidAmount = $state('');
@@ -41,6 +42,7 @@
       rating: 4.9,
     });
     goto('/driver-dashboard');
+    showToast('Ride offer created');
   }
 </script>
 

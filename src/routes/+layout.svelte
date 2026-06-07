@@ -1,7 +1,8 @@
 <script lang="ts">
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
-	// import Toaster from '$lib/components/Toaster.svelte';
+	// import { Toaster } from 'svelte-sonner';
+	import ToastContainer from '$lib/components/ToastContainer.svelte';
 	// import Navbar from '$lib/components/Navbar.svelte';
 
 	let { children } = $props();
@@ -19,6 +20,5 @@
 	{@render children()}
 </div>
 
-<!-- <Toaster richColors position="top-right" /> -->
-<!-- <Toaster/> -->
+<ToastContainer />
 

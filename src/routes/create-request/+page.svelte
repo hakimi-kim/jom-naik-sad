@@ -5,6 +5,8 @@
 	import { Switch } from '$lib/components/ui/switch/index.js';
   import { LOCATIONS } from "$lib/data/mockData";
 	import { ArrowLeft } from 'lucide-svelte';
+
+  import { showToast } from '$lib/toast';
  
   type Location = (typeof LOCATIONS)[number];
  
@@ -79,6 +81,7 @@
     } else {
       goto('/ride/finding');
     }
+    showToast('Ride request created');
   }
 </script>
  

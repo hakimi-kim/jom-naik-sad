@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
   import { toasts } from './toast';
 </script>
 
@@ -14,4 +14,4 @@
       {t.message}
     </div>
   {/each}
-</div>
+</div> -->

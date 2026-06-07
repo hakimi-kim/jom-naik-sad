@@ -4,6 +4,7 @@
   import { ArrowLeft, Plus, Trash2 } from 'lucide-svelte';
   import { activeRide } from '$lib/stores/rideState';
   import { LOCATIONS } from '$lib/data/mockData';
+  import { showToast } from '$lib/toast';
 
   type Location = (typeof LOCATIONS)[number];
 
@@ -75,6 +76,7 @@
       rating: 4.9,
     });
     goto('/driver-dashboard');
+    showToast('Ride offer published');
   }
 </script>
 

@@ -4,6 +4,8 @@
   import { ArrowLeft } from 'lucide-svelte';
   import { activeRide } from '$lib/stores/rideState';
 
+  import { showToast } from '$lib/toast';
+
   function selectDriver() {
     activeRide.set({
       status: 'PENDING',
@@ -20,6 +22,7 @@
       rating: 4.9,
     });
     goto('/passenger-dashboard');
+    showToast('Ride request created');
   }
 </script>
 

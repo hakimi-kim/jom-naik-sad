@@ -1,6 +1,11 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
   import AppHeader from '$lib/components/AppHeader.svelte';
 	import { ArrowLeft } from 'lucide-svelte';
+
+  function handleChat(){
+    goto("/chat");
+  }
 </script>
 
 <svelte:head><title>Active Ride · IIUM Ride</title></svelte:head>
@@ -122,7 +127,7 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
       Share
     </button>
-    <button class="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-sky-400 to-cyan-500 py-3 text-sm font-bold text-white hover:opacity-95 transition-opacity">
+    <button onclick={handleChat} class="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-sky-400 to-cyan-500 py-3 text-sm font-bold text-white hover:opacity-95 transition-opacity">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       Open chat
     </button>

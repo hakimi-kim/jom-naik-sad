@@ -51,6 +51,7 @@
   import { driverApplicationStatus } from '$lib/stores/driverStatus';
   import { onMount } from 'svelte';
   import { Inbox } from 'lucide-svelte';
+  import { showToast } from '$lib/toast';
 
   let {
     title = 'IIUM Ride',
@@ -283,8 +284,8 @@
             <!-- Sign out -->
             <div class="border-t border-border/60 mt-1 pt-1">
               <button
-                onclick={() => { closeDropdown(); goto('/login'); }}
-                class="flex w-full items-center gap-3 px-4 py-2.5 text-sm text-destructive hover:bg-destructive/5 transition-colors"
+                onclick={() => { closeDropdown(); goto('/login');showToast('Sign Out Successfully');}}
+                class="flex w-full items-center gap-3 px-4 py-2.5 text-sm text-destructive hover:bg-red-400 hover:text-white transition-colors"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
                 Sign out

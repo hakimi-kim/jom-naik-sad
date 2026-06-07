@@ -77,7 +77,7 @@ Stay in Touch: Let us know ASAP if you have any changes or delays.\n
     {#each messages as message}
 
       {#if message.sender === 'system'}
-        <div class="flex justify-center">
+        <div class="flex justify-end px-4 py-3">
           <div
             class="max-w-sm rounded-2xl bg-muted px-4 py-3 text-sm text-muted-foreground"
           >

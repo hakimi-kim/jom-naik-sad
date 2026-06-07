@@ -3,7 +3,8 @@
   import { goto } from '$app/navigation';
   import AppHeader from '$lib/components/AppHeader.svelte';
   import { BadgePlus } from 'lucide-svelte';
-  import { driverApplicationStatus } from '$lib/stores/driverStatus';
+  import { driverApplicationStatus } from '$lib/stores/driverStatus'; 
+  import { showToast } from '$lib/toast';
 
 
   type DriverType = 'malaysian' | 'international';
@@ -46,6 +47,7 @@
     // TODO: call your API
     driverApplicationStatus.set('pending'); 
     goto('/passenger-dashboard');
+showToast('Driver application submitted');
   }
 </script>
 

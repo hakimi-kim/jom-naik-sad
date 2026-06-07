@@ -31,6 +31,14 @@
     }, 1000);
     return () => clearInterval(interval);
   });
+
+  function backToDashboard(){
+    goto('/passenger-dashboard');
+  }
+
+  function handleHandle(){
+    goto('/create-request');
+  }
 </script>
 
 <svelte:head><title>Finding Driver · IIUM Ride</title></svelte:head>
@@ -76,7 +84,7 @@
           <p class="text-xs text-muted-foreground">RM5 per seat</p>
         </div>
         <button
-          onclick={() => goto('/passenger-dashboard')}
+          onclick={backToDashboard}
           class="h-12 w-full rounded-2xl bg-gradient-to-r from-sky-400 to-cyan-500 text-sm font-bold text-white hover:opacity-95 transition-opacity"
         >
           Back to dashboard
@@ -96,7 +104,7 @@
 
     {#if !matched}
       <button
-        onclick={() => goto('/create-request')}
+        onclick={handleHandle}
         class="h-12 w-full rounded-2xl border border-border/60 bg-card text-sm font-medium text-foreground hover:bg-muted/50 transition-colors flex items-center justify-center gap-2"
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>

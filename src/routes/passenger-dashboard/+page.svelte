@@ -1,3 +1,4 @@
+<!-- passenger-dashboard -->
 <script lang="ts">
   import { goto } from '$app/navigation';
   import AppHeader from '$lib/components/AppHeader.svelte';

@@ -2,25 +2,30 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
 	import { Car } from 'lucide-svelte';
+  import { showToast } from '$lib/toast';
 
-  let email = $state('');
+  let identifier = $state('');
   let password = $state('');
 
   function handleLogin(e: SubmitEvent) {
     e.preventDefault();
 
-    if (email === 'admin@iium.edu.my' || email === 'admin') {
+    if (identifier === 'admin@iium.edu.my' || identifier === 'admin') {
       // goto('/admin/dashboard');
       goto('/admin-dashboard');
+      showToast('Log In Successfully');
 
-    } else if (email.startsWith('driver')) {
+    } else if (identifier.startsWith('driver')) {
       // e.g. driver@iium.edu.my or driverID
       // goto('/driver/dashboard');
       goto('/driver-dashboard');
 
+      showToast('Log In Successfully');
+
     } else {
       // default: passenger
       goto('/passenger-dashboard');
+      showToast('Log In Successfully');
     }
   }
 </script>
@@ -42,29 +47,45 @@
 
     <div class="rounded-3xl bg-card p-6 shadow-elevated sm:p-8">
       <h2 class="text-xl font-semibold text-foreground">Log In</h2>
-      <p class="mt-1 text-sm text-muted-foreground">Sign in with your student credentials and password</p>
+      <p class="mt-1 text-sm text-muted-foreground">Sign in using your phone number, email, or matric number</p>
 
       <form onsubmit={handleLogin} class="mt-6 space-y-4">
         <div class="space-y-4">
           <div class="space-y-2">
-            <label for="email" class="block text-sm font-medium text-foreground">Student ID or Email</label>
+            <label for="identifier" class="block text-sm font-medium text-foreground">
+              Phone Number, Email, or Matric Number
+            </label>
+
             <input
-              id="email"
+              id="identifier"
               type="text"
-              bind:value={email}
-              placeholder="2210123 or name@iium.edu.my"
+              bind:value={identifier}
+              placeholder="0123456789, name@iium.edu.my, or 2210123"
               class="h-12 w-full rounded-xl border border-input bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition"
             />
           </div>
 
           <div class="space-y-2">
-            <label for="password" class="block text-sm font-medium text-foreground">Password</label>
+            <label for="password" class="block text-sm font-medium text-foreground">
+              Password
+            </label>
+
             <input
               id="password"
               type="password"
               bind:value={password}
+              placeholder="Enter your password"
               class="h-12 w-full rounded-xl border border-input bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition"
             />
+
+            <div class="text-right">
+              <a
+                href="/forgot-password"
+                class="hover:text-blue-600 text-black underline text-center text-sm"
+              >
+                Forgot password or email?
+              </a>
+            </div>
           </div>
         </div>
 

@@ -3,7 +3,10 @@
   import { goto } from '$app/navigation';
 	import { Car } from 'lucide-svelte';
 
+  let fullName = $state('');
+  let phoneNumber = $state('');
   let email = $state('');
+  let matricNumber = $state('');
   let password = $state('');
   let confirmPassword = $state('');
   
@@ -29,40 +32,96 @@
 
     <div class="rounded-3xl bg-card p-6 shadow-elevated sm:p-8">
       <h2 class="text-xl font-semibold text-foreground">Register</h2>
-      <p class="mt-1 text-sm text-muted-foreground">Sign up with your student credentials and password</p>
+      <p class="mt-1 text-sm text-muted-foreground">Create your Jom Naik account to start sharing rides</p>
 
       <form onsubmit={handleRegister} class="mt-6 space-y-4">
         <div class="space-y-4">
+
+          <!-- Full Name -->
           <div class="space-y-2">
-            <label for="email" class="block text-sm font-medium text-foreground">Student ID or Email</label>
+            <label for="full-name" class="block text-sm font-medium text-foreground">
+              Full Name
+            </label>
             <input
-              id="email"
+              id="full-name"
               type="text"
-              bind:value={email}
-              placeholder="2210123 or name@iium.edu.my"
+              bind:value={fullName}
+              placeholder="Muhammad Farish Hakimi"
               class="h-12 w-full rounded-xl border border-input bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition"
             />
           </div>
 
+          <!-- Phone Number -->
           <div class="space-y-2">
-            <label for="password" class="block text-sm font-medium text-foreground">Password</label>
+            <label for="phone" class="block text-sm font-medium text-foreground">
+              Phone Number
+            </label>
+            <input
+              id="phone"
+              type="tel"
+              bind:value={phoneNumber}
+              placeholder="0123456789"
+              class="h-12 w-full rounded-xl border border-input bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition"
+            />
+          </div>
+
+          <!-- Email -->
+          <div class="space-y-2">
+            <label for="email" class="block text-sm font-medium text-foreground">
+              Email
+            </label>
+            <input
+              id="email"
+              type="email"
+              bind:value={email}
+              placeholder="name@iium.edu.my"
+              class="h-12 w-full rounded-xl border border-input bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition"
+            />
+          </div>
+
+          <!-- Matric Number -->
+          <div class="space-y-2">
+            <label for="matric" class="block text-sm font-medium text-foreground">
+              Matric Number
+              <span class="text-muted-foreground font-normal">(Optional)</span>
+            </label>
+            <input
+              id="matric"
+              type="text"
+              bind:value={matricNumber}
+              placeholder="2212345"
+              class="h-12 w-full rounded-xl border border-input bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition"
+            />
+          </div>
+
+          <!-- Password -->
+          <div class="space-y-2">
+            <label for="password" class="block text-sm font-medium text-foreground">
+              Password
+            </label>
             <input
               id="password"
               type="password"
               bind:value={password}
+              placeholder="Enter password"
               class="h-12 w-full rounded-xl border border-input bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition"
             />
           </div>
 
+          <!-- Confirm Password -->
           <div class="space-y-2">
-            <label for="confirm-password" class="block text-sm font-medium text-foreground">Confirm Password</label>
+            <label for="confirm-password" class="block text-sm font-medium text-foreground">
+              Confirm Password
+            </label>
             <input
               id="confirm-password"
               type="password"
               bind:value={confirmPassword}
+              placeholder="Re-enter password"
               class="h-12 w-full rounded-xl border border-input bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition"
             />
           </div>
+
         </div>
 
         <button
