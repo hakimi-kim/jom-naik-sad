@@ -1,3 +1,4 @@
+<!-- admin-dashboard -->
 <script lang="ts">
 	import AppHeader from '$lib/components/AppHeader.svelte';
 	import RoleToggle from '$lib/components/RoleToggle.svelte';

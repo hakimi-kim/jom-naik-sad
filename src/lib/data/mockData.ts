@@ -12,3 +12,4 @@ export const LOCATIONS = [
 	{ name: 'Sunway Pyramid', type: 'Mall' },
 	{ name: 'KL Sentral', type: 'Transport hub' }
 ];
+

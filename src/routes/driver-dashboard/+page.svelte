@@ -1,19 +1,9 @@
 <script lang="ts">
-	import AppHeader from '$lib/components/AppHeader.svelte';
-	import RoleToggle from '$lib/components/RoleToggle.svelte';
+  import { goto } from '$app/navigation';
+  import AppHeader from '$lib/components/AppHeader.svelte';
   import StatusBadge from '$lib/components/StatusBadge.svelte';
-
-  let role = $state<'passenger' | 'driver'>('passenger');
-
-  const passengerActions = [
-    { href: '/passenger/create', icon: 'plus', title: 'Create request', desc: 'Tell drivers where you want to go', color: 'bg-primary-soft text-primary' },
-    { href: '/passenger/offers', icon: 'list', title: 'View offers', desc: 'Browse driver offers near you', color: 'bg-secondary-soft text-secondary' }
-  ];
-  const driverActions = [
-    { href: '/driver/requests', icon: 'list', title: 'Browse requests', desc: 'Find passengers headed your way', color: 'bg-primary-soft text-primary' },
-    { href: '/driver/create', icon: 'plus', title: 'Create offer', desc: 'Post a route with seats available', color: 'bg-secondary-soft text-secondary' }
-  ];
-  const actions = $derived(role === 'passenger' ? passengerActions : driverActions);
+  import { activeRide } from '$lib/stores/rideState';
+  import { driverApplicationStatus } from '$lib/stores/driverStatus';
 </script>
 
 <svelte:head><title>Dashboard – IIUM Ride</title></svelte:head>
@@ -22,75 +12,113 @@
   <AppHeader />
   <main class="container mx-auto max-w-2xl space-y-6 px-4 py-6">
 
-    <!-- Greeting -->
-    <section class="animate-fade-in">
-      <p class="text-sm text-muted-foreground">Assalamualaikum 👋</p>
-      <h1 class="mt-1 text-2xl font-bold tracking-tight text-foreground">Where to today?</h1>
-    </section>
-
-    <!-- Role toggle -->
-    <RoleToggle {role} onchange={(newRole) => role = newRole} />
-
-    <!-- Action cards -->
-    <section class="grid gap-4 sm:grid-cols-2">
-      {#each actions as action (action.href)}
-        <a
-          href={action.href}
-          class="group rounded-3xl border border-border/60 bg-card p-5 shadow-card transition-all hover:shadow-elevated"
-        >
-          <div class="flex h-11 w-11 items-center justify-center rounded-2xl {action.color}">
-            {#if action.icon === 'plus'}
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            {:else}
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-            {/if}
-          </div>
-          <h3 class="mt-4 text-base font-semibold text-foreground">{action.title}</h3>
-          <p class="mt-1 text-sm text-muted-foreground">{action.desc}</p>
-        </a>
-      {/each}
-    </section>
-
-    <!-- Active ride -->
     <section>
-      <div class="mb-3 flex items-center justify-between">
-        <h2 class="text-sm font-semibold text-foreground">Active ride</h2>
-        <a href="/ride/active" class="text-xs font-medium text-primary hover:underline">View details →</a>
-      </div>
-      <a
-        href="/ride/active"
-        class="block rounded-3xl border border-border/60 bg-card p-5 shadow-card transition-all hover:shadow-elevated"
-      >
-        <div class="flex items-start justify-between gap-3">
-          <div class="flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-secondary"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            <span class="text-sm font-semibold text-foreground">IIUM → KL Sentral</span>
-          </div>
-          <StatusBadge status="MATCHED" />
+      <p class="text-sm text-muted-foreground">Assalamualaikum 👋</p>
+      <h1 class="mt-1 text-2xl font-bold tracking-tight text-foreground">Ready to drive?</h1>
+    </section>
+
+    <section class="grid gap-4 sm:grid-cols-2">
+      <a href="/browse-request"
+        class="group block rounded-3xl border border-border/60 bg-card p-5 shadow-card transition-all hover:shadow-elevated">
+        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary-soft text-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </div>
-        <div class="mt-4 flex items-center gap-4 text-sm text-muted-foreground">
-          <span class="inline-flex items-center gap-1.5">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-            2 stops
-          </span>
-          <span class="inline-flex items-center gap-1.5">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            3/4 seats
-          </span>
-          <span class="inline-flex items-center gap-1.5">
-            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="text-warning"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            4.9
-          </span>
+        <h3 class="mt-4 text-base font-semibold text-foreground">Browse Request</h3>
+        <p class="mt-1 text-sm text-muted-foreground">Find passengers headed your way</p>
+      </a>
+      <a href="/create-offer"
+        class="group block rounded-3xl border border-border/60 bg-card p-5 shadow-card transition-all hover:shadow-elevated">
+        <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-secondary-soft text-secondary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
         </div>
+        <h3 class="mt-4 text-base font-semibold text-foreground">Create Offer</h3>
+        <p class="mt-1 text-sm text-muted-foreground">Post a route with seats available</p>
       </a>
     </section>
 
-    <!-- Safety strip -->
+    <!-- Active ride — state-aware -->
+    <section>
+      <div class="mb-3 flex items-center justify-between">
+        <h2 class="text-sm font-semibold text-foreground">Active ride</h2>
+        {#if $activeRide?.status === 'MATCHED'}
+          <a href="/ride/active" class="text-xs font-medium text-primary hover:underline">View details →</a>
+        {/if}
+      </div>
+
+      {#if !$activeRide}
+        <div class="rounded-3xl border border-dashed border-border/60 bg-card p-6 text-center space-y-1">
+          <p class="text-sm font-medium text-foreground">No active ride</p>
+          <p class="text-xs text-muted-foreground">Browse requests or create an offer to get started.</p>
+        </div>
+
+      {:else if $activeRide.status === 'PENDING'}
+        <div class="rounded-3xl border border-border/60 bg-card p-5 shadow-card space-y-3">
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-500"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span class="text-sm font-semibold text-foreground">{$activeRide.from} → {$activeRide.to}</span>
+            </div>
+            <StatusBadge status="PENDING" />
+          </div>
+          <div class="rounded-2xl border border-border/60 bg-muted/30 px-4 py-3 space-y-1 text-xs text-muted-foreground">
+            <div class="flex justify-between">
+              <span>Passenger</span>
+              <span class="font-medium text-foreground">{$activeRide.passengerName}</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Your offer</span>
+              <span class="font-medium text-foreground">RM {$activeRide.price} / seat</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Time</span>
+              <span class="font-medium text-foreground">{$activeRide.time}</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Seats</span>
+              <span class="font-medium text-foreground">{$activeRide.seats}</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-2.5 rounded-2xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/40 px-4 py-3">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <div>
+              <p class="text-xs font-semibold text-amber-700 dark:text-amber-400">Waiting for passenger to confirm</p>
+              <p class="text-xs text-amber-600/80 dark:text-amber-500/80 mt-0.5">
+                {$activeRide.passengerName} will accept or decline your offer shortly.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      {:else if $activeRide.status === 'MATCHED'}
+        <a href="/ride/active"
+          class="block rounded-3xl border border-border/60 bg-card p-5 shadow-card transition-all hover:shadow-elevated">
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-secondary"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              <span class="text-sm font-semibold text-foreground">{$activeRide.from} → {$activeRide.to}</span>
+            </div>
+            <StatusBadge status="MATCHED" />
+          </div>
+          <div class="mt-4 flex items-center gap-4 text-sm text-muted-foreground">
+            <span class="inline-flex items-center gap-1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              {$activeRide.time}
+            </span>
+            <span class="inline-flex items-center gap-1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              {$activeRide.seats} seats
+            </span>
+            <span class="inline-flex items-center gap-1.5 font-medium text-foreground">
+              RM {$activeRide.price}
+            </span>
+          </div>
+        </a>
+      {/if}
+    </section>
+
     <section class="rounded-3xl bg-gradient-soft p-5">
       <h3 class="text-sm font-semibold text-foreground">Stay safe on every ride</h3>
-      <p class="mt-1 text-xs text-muted-foreground">
-        All chats unlock only after a match. Share your trip with friends from the ride page.
-      </p>
+      <p class="mt-1 text-xs text-muted-foreground">All chats unlock only after a match. Share your trip with friends from the ride page.</p>
     </section>
 
   </main>

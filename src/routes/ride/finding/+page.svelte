@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { goto } from '$app/navigation';
   import AppHeader from '$lib/components/AppHeader.svelte';
+  import { activeRide } from '$lib/stores/rideState';
 
   let seconds = $state(0);
   let matched = $state(false);
@@ -12,6 +13,20 @@
       if (seconds >= 5) {
         clearInterval(interval);
         matched = true;
+        activeRide.set({
+          status: 'MATCHED',
+          actor: 'passenger',
+          price: 5,
+          from: 'IIUM Main Gate',
+          to: 'Gombak LRT Station',
+          time: '08:30',
+          seats: 1,
+          passengerName: 'You',
+          driverName: 'Ahmad R.',
+          vehicle: 'Perodua Myvi',
+          plate: 'WXY 1234',
+          rating: 4.9,
+        });
       }
     }, 1000);
     return () => clearInterval(interval);
@@ -22,11 +37,9 @@
 
 <div class="min-h-screen bg-background pb-12">
   <AppHeader />
-
   <main class="container mx-auto max-w-lg px-4 py-6 space-y-4">
 
     {#if !matched}
-      <!-- Searching state -->
       <div class="rounded-3xl overflow-hidden bg-gradient-to-br from-sky-400 to-cyan-500 p-8 text-white text-center space-y-4">
         <div class="flex items-center justify-center">
           <div class="h-24 w-24 rounded-full bg-white/20 flex items-center justify-center">
@@ -47,7 +60,6 @@
       </div>
 
     {:else}
-      <!-- Matched state -->
       <div class="rounded-3xl border border-border/60 bg-card p-5 shadow-card space-y-4">
         <div class="flex items-center gap-3">
           <div class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-cyan-500 text-cyan-500">
@@ -58,23 +70,20 @@
             <p class="text-sm text-muted-foreground">Ahmad R. accepted your request</p>
           </div>
         </div>
-
         <div class="rounded-2xl border border-border/60 bg-muted/40 px-4 py-3 space-y-1">
           <p class="text-sm font-medium text-foreground">Perodua Myvi · ⭐ 4.9</p>
           <p class="text-xs text-muted-foreground">IIUM Main Gate → Gombak LRT Station · 08:30</p>
           <p class="text-xs text-muted-foreground">RM5 per seat</p>
         </div>
-
         <button
-          onclick={() => goto('/ride/active')}
+          onclick={() => goto('/passenger-dashboard')}
           class="h-12 w-full rounded-2xl bg-gradient-to-r from-sky-400 to-cyan-500 text-sm font-bold text-white hover:opacity-95 transition-opacity"
         >
-          View ride details
+          Back to dashboard
         </button>
       </div>
     {/if}
 
-    <!-- How it works card -->
     <div class="rounded-3xl border border-border/60 bg-card p-5 shadow-card space-y-3">
       <p class="text-sm font-semibold text-foreground">How auto-matching works</p>
       <ul class="space-y-1.5 text-sm text-muted-foreground">

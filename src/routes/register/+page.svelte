@@ -1,3 +1,4 @@
+<!-- register -->
 <script lang="ts">
   import { goto } from '$app/navigation';
 	import { Car } from 'lucide-svelte';
