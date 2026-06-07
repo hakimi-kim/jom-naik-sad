@@ -27,7 +27,6 @@
     </section>
 
     <!-- Role toggle -->
-    <!-- <RoleToggle {role} onchange={(newRole) => role = newRole} /> -->
 
     <!-- Action cards -->
     <!-- First card: full width, horizontal layout -->
@@ -62,7 +61,10 @@
 
       <!-- Other 2 cards: 2 columns -->
       <div class="grid gap-4 sm:grid-cols-2">
-        <div class="group rounded-3xl border border-border/60 bg-card p-5 shadow-card transition-all hover:shadow-elevated">
+        <a
+          href="/create-request"
+          class="group block rounded-3xl border border-border/60 bg-card p-5 shadow-card transition-all hover:shadow-elevated"
+        >
           <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary-soft text-primary">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
@@ -70,9 +72,12 @@
           </div>
           <h3 class="mt-4 text-base font-semibold text-foreground">Create Request</h3>
           <p class="mt-1 text-sm text-muted-foreground">Tell drivers where you want to go</p>
-        </div>
+        </a>
 
-        <div class="group rounded-3xl border border-border/60 bg-card p-5 shadow-card transition-all hover:shadow-elevated">
+        <a
+          href="/ride/offers"
+          class="group block rounded-3xl border border-border/60 bg-card p-5 shadow-card transition-all hover:shadow-elevated"
+        >
           <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-secondary-soft text-secondary">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/>
@@ -81,7 +86,7 @@
           </div>
           <h3 class="mt-4 text-base font-semibold text-foreground">View Offers</h3>
           <p class="mt-1 text-sm text-muted-foreground">Browse driver offers near you</p>
-        </div>
+        </a>
       </div>
     </section>
 
@@ -98,7 +103,7 @@
         <div class="flex items-start justify-between gap-3">
           <div class="flex items-center gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-secondary"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            <span class="text-sm font-semibold text-foreground">IIUM → KL Sentral</span>
+            <span class="text-sm font-semibold text-foreground">IIUM → Gombak LRT Station</span>
           </div>
           <StatusBadge status="MATCHED" />
         </div>
@@ -109,7 +114,7 @@
           </span>
           <span class="inline-flex items-center gap-1.5">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            3/4 seats
+            1/4 seats
           </span>
           <span class="inline-flex items-center gap-1.5">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="text-warning"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
