@@ -70,22 +70,21 @@
     }, 150);
   }
  
-  function handleSubmit(e: Event) {
-    e.preventDefault();
-    if (!pickupValue || !destValue) {
-      alert('Please select a pickup location and destination.');
-      return;
-    }
-    if (carpooling) {
-      goto('/ride/offers');
-    } else {
-      goto('/ride/finding');
-    }
-    showToast('Ride request created');
+function handleSubmit(e: Event) {
+  e.preventDefault();
+  if (!pickupValue || !destValue) {
+    showToast('Please fill in all request information', 'error');
+    return;
   }
+  if (carpooling) {
+    goto('/ride/offers');
+  } else {
+    goto('/ride/finding');
+  }
+  showToast('Ride request created');
+}
 </script>
  
-<svelte:head><title>Create Ride Request · IIUM Ride</title></svelte:head>
  
 <div class="min-h-screen bg-background pb-12">
   <AppHeader />

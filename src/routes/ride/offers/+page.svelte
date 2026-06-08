@@ -26,7 +26,6 @@
   }
 </script>
 
-<svelte:head><title>Available Drivers · IIUM Ride</title></svelte:head>
 
 <div class="min-h-screen bg-background pb-12">
   <AppHeader />

@@ -17,7 +17,6 @@
   }
 </script>
 
-<svelte:head><title>IIUM Ride – Register</title></svelte:head>
 
 <div class="flex min-h-screen flex-col items-center justify-center bg-gradient-soft px-4">
   <div class="mx-auto w-full max-w-md animate-fade-in py-12">

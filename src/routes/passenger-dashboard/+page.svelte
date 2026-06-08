@@ -2,14 +2,20 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import AppHeader from '$lib/components/AppHeader.svelte';
+  import DriverHeader from '$lib/components/DriverHeader.svelte';
   import StatusBadge from '$lib/components/StatusBadge.svelte';
   import { activeRide } from '$lib/stores/rideState';
+  import { driverApplicationStatus } from '$lib/stores/driverStatus';
 </script>
 
-<svelte:head><title>Dashboard · IIUM Ride</title></svelte:head>
 
 <div class="min-h-screen bg-background pb-12">
-  <AppHeader />
+
+  {#if $driverApplicationStatus === 'approved'}
+    <DriverHeader />
+  {:else}
+    <AppHeader />
+  {/if}
   <main class="container mx-auto max-w-2xl space-y-6 px-4 py-6">
 
     <!-- Greeting -->

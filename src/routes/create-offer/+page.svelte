@@ -5,10 +5,10 @@
   import { activeRide } from '$lib/stores/rideState';
   import { LOCATIONS } from '$lib/data/mockData';
   import { showToast } from '$lib/toast';
+	import DriverHeader from '$lib/components/DriverHeader.svelte';
 
   type Location = (typeof LOCATIONS)[number];
 
-  // Floor/ceiling for mahallah → LRT routes (hardcoded)
   const FLOOR_PRICE = 8;
   const CEILING_PRICE = 15;
 
@@ -20,6 +20,7 @@
   let seats = $state('4');
   let price = $state('');
   let stops = $state<string[]>(['']);
+  let stopOpen = $state<boolean[]>([false]);
   let submitting = $state(false);
 
   let pickupResults = $derived(filterLocations(pickupValue));
@@ -51,10 +52,25 @@
     setTimeout(() => { if (field === 'pickup') pickupOpen = false; else destOpen = false; }, 150);
   }
 
-  function addStop() { stops = [...stops, '']; }
-  function removeStop(i: number) { stops = stops.filter((_, idx) => idx !== i); }
+  function addStop() {
+    stops = [...stops, ''];
+    stopOpen = [...stopOpen, false];
+  }
+  function removeStop(i: number) {
+    stops = stops.filter((_, idx) => idx !== i);
+    stopOpen = stopOpen.filter((_, idx) => idx !== i);
+  }
   function updateStop(i: number, val: string) {
     stops = stops.map((s, idx) => idx === i ? val : s);
+  }
+  function selectStop(i: number, name: string) {
+    stops = stops.map((s, idx) => idx === i ? name : s);
+    stopOpen = stopOpen.map((o, idx) => idx === i ? false : o);
+  }
+  function handleStopBlur(i: number) {
+    setTimeout(() => {
+      stopOpen = stopOpen.map((o, idx) => idx === i ? false : o);
+    }, 150);
   }
 
   async function publishOffer() {
@@ -62,7 +78,7 @@
     submitting = true;
     await new Promise(r => setTimeout(r, 600));
     activeRide.set({
-      status: 'MATCHED',
+      status: 'PUBLISH',
       actor: 'driver',
       price: priceNum,
       from: pickupValue,
@@ -80,10 +96,10 @@
   }
 </script>
 
-<svelte:head><title>Create Offer · IIUM Ride</title></svelte:head>
+
 
 <div class="min-h-screen bg-background pb-12">
-  <AppHeader />
+  <DriverHeader />
   <main class="container mx-auto max-w-2xl px-4 py-6">
 
     <a href="/driver-dashboard" class="mb-5 inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors">
@@ -148,11 +164,44 @@
           </div>
           {#each stops as stop, i}
             <div class="flex items-center gap-2">
-              <input type="text" value={stop}
-                oninput={(e) => updateStop(i, (e.target as HTMLInputElement).value)}
-                placeholder="e.g. KICT Building"
-                class="h-10 flex-1 rounded-xl border border-input bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition"
-              />
+              <div class="relative flex-1">
+                <input
+                  type="text"
+                  value={stop}
+                  oninput={(e) => {
+                    const val = (e.target as HTMLInputElement).value;
+                    updateStop(i, val);
+                    stopOpen = stopOpen.map((o, idx) =>
+                      idx === i ? val.trim().length > 0 && filterLocations(val).length > 0 : o
+                    );
+                  }}
+                  onfocus={() => {
+                    if (stop.trim() && filterLocations(stop).length > 0) {
+                      stopOpen = stopOpen.map((o, idx) => idx === i ? true : o);
+                    }
+                  }}
+                  onblur={() => handleStopBlur(i)}
+                  placeholder="e.g. KICT Building"
+                  autocomplete="off"
+                  class="h-10 w-full rounded-xl border border-input bg-background px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition"
+                />
+                {#if stopOpen[i]}
+                  {@const results = filterLocations(stop)}
+                  <ul class="absolute left-0 right-0 top-full z-50 mt-1 overflow-hidden rounded-xl border border-border bg-card shadow-lg">
+                    {#each results as loc}
+                      <li>
+                        <button type="button" onmousedown={() => selectStop(i, loc.name)}
+                          class="flex w-full items-center gap-3 border-b border-border/50 px-4 py-2.5 text-left last:border-0 hover:bg-muted/50 transition-colors">
+                          <div>
+                            <p class="text-sm font-medium text-foreground">{loc.name}</p>
+                            <p class="text-xs text-muted-foreground">{loc.type}</p>
+                          </div>
+                        </button>
+                      </li>
+                    {/each}
+                  </ul>
+                {/if}
+              </div>
               {#if stops.length > 1}
                 <button type="button" onclick={() => removeStop(i)}
                   class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors">
@@ -236,7 +285,13 @@
           <!-- Floor/ceiling notice -->
           <div class="mb-2 flex items-center gap-2 rounded-xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800/40 px-3 py-2">
             <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            <p class="text-xs text-amber-700 dark:text-amber-400">Mahallah → LRT: RM {FLOOR_PRICE} min · RM {CEILING_PRICE} max per seat</p>
+            <p class="text-xs text-amber-700 dark:text-amber-400">
+              {#if pickupValue && destValue}
+                {pickupValue} → {destValue}: RM {FLOOR_PRICE} min · RM {CEILING_PRICE} max per seat
+              {:else}
+                Pick Up → Destination: RM  min · RM  max per seat
+              {/if}
+            </p>
           </div>
           <div class="relative">
             <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm font-medium text-muted-foreground">RM</span>

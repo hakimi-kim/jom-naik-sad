@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import AppHeader from '$lib/components/AppHeader.svelte';
+	import DriverHeader from '$lib/components/DriverHeader.svelte';
 	import { showToast } from '$lib/toast';
 
 	let profile = $state({
@@ -29,12 +30,9 @@ function saveProfile() {
 	}
 </script>
 
-<svelte:head>
-	<title>Profile · IIUM Ride</title>
-</svelte:head>
 
 <div class="min-h-screen bg-background pb-12">
-	<AppHeader title="Profile" />
+	<DriverHeader title="Profile" />
 
 	<main class="container mx-auto max-w-4xl space-y-6 px-4 py-6">
 

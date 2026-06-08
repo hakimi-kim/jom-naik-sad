@@ -4,6 +4,7 @@
   import { ArrowLeft, ShieldCheck, Clock, Users } from 'lucide-svelte';
   import { activeRide } from '$lib/stores/rideState';
   import { showToast } from '$lib/toast';
+	import DriverHeader from '$lib/components/DriverHeader.svelte';
 
   let bidOpen = $state(false);
   let bidAmount = $state('');
@@ -46,10 +47,9 @@
   }
 </script>
 
-<svelte:head><title>Browse Requests · IIUM Ride</title></svelte:head>
 
 <div class="min-h-screen bg-background pb-12">
-  <AppHeader />
+  <DriverHeader />
   <main class="container mx-auto max-w-lg px-4 py-6 space-y-4">
 
     <a href="/driver-dashboard" class="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors mb-2">

@@ -8,8 +8,10 @@
 	let { children } = $props();
 </script>
 
+
 <svelte:head>
 	<link rel="icon" href={favicon} />
+	<title>Jom Naik!</title>
 </svelte:head>
 
 

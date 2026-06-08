@@ -48,11 +48,6 @@ function terminateDriver() {
 
 </script>
 
-
-<svelte:head>
-  <title>Driver Details · IIUM Ride</title>
-</svelte:head>
-
 <div class="min-h-screen bg-background pb-12">
   <AdminHeader />
 

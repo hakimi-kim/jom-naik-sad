@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
   import AppHeader from '$lib/components/AppHeader.svelte';
+	import DriverHeader from '$lib/components/DriverHeader.svelte';
 	import { ArrowLeft } from 'lucide-svelte';
 
   function handleChat(){
@@ -10,11 +11,11 @@
 
 
 <div class="min-h-screen bg-background pb-24">
-  <AppHeader />
+  <DriverHeader />
 
   <main class="container mx-auto max-w-lg px-4 py-6 space-y-4">
 
-    <a href="/passenger-dashboard" class="mb-4">
+    <a href="/driver-dashboard" class="mb-4">
       <div class="flex items-center">
         <ArrowLeft />
         back
@@ -31,9 +32,9 @@
         </div>
         <div class="flex items-center gap-1">
           <div class="h-8 w-8 rounded-full bg-white/30 flex items-center justify-center text-xs font-bold">A</div>
-          <div class="h-8 w-8 rounded-full border-2 border-dashed border-white/50 flex items-center justify-center text-xs text-white/60">+</div>
-          <div class="h-8 w-8 rounded-full border-2 border-dashed border-white/50 flex items-center justify-center text-xs text-white/60">+</div>
-          <div class="h-8 w-8 rounded-full border-2 border-dashed border-white/50 flex items-center justify-center text-xs text-white/60">+</div>
+          <div class="h-8 w-8 rounded-full bg-white/30 flex items-center justify-center text-xs font-bold">B</div>
+          <div class="h-8 w-8 rounded-full bg-white/30 flex items-center justify-center text-xs font-bold">C</div>
+          <div class="h-8 w-8 rounded-full bg-white/30 flex items-center justify-center text-xs font-bold">D</div>
           <div class="ml-2 rounded-full bg-green-400/30 border border-green-300 px-2.5 py-0.5 text-xs font-semibold text-white">
             ● Matched
           </div>
@@ -43,13 +44,13 @@
 
     <!-- Driver card -->
     <div class="rounded-3xl border border-border/60 bg-card px-5 py-4 shadow-card">
-      <p class="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">Your driver</p>
+      <p class="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-3">Driver</p>
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
           <div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-sm font-bold text-primary">A</div>
           <div>
             <div class="flex items-center gap-1.5">
-              <span class="text-sm font-semibold text-foreground">Ahmad R.</span>
+              <span class="text-sm font-semibold text-foreground">Ahmad R. · You</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
             <div class="flex items-center gap-1 text-xs text-muted-foreground mt-0.5">
@@ -104,16 +105,26 @@
           Identities anonymized
         </div>
       </div>
-      <div class="space-y-3 flex items-center justify-between">
+      <div class="space-y-3">
         {#each [
-          { initial: 'A', label: 'Passenger #1', you: true },
+          { initial: 'A', label: 'Passenger #1' },
+          { initial: 'B', label: 'Passenger #2' },
+          { initial: 'C', label: 'Passenger #3' },
+          { initial: 'D', label: 'Passenger #4' }
         ] as p}
-          <div class="flex items-center gap-3">
-            <div class="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-sm font-semibold text-foreground">{p.initial}</div>
-            <p class="text-sm text-foreground">{p.label}{p.you ? ' · You' : ''}</p>
-          </div>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="flex h-9 w-9 items-center justify-center rounded-full bg-muted text-sm font-semibold text-foreground">{p.initial}</div>
+              <p class="text-sm text-foreground">{p.label}</p>
+            </div>
 
-          <p class="text-sm text-foreground items-center">RM 10</p>
+            <div class="flex items-center gap-2">
+              <p class="text-sm text-foreground">RM 3</p>
+              <button class="flex h-9 w-9 items-center justify-center rounded-full border border-border/60 text-muted-foreground hover:bg-muted/50 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 11.8a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16a2 2 0 0 1 .27.92z"/></svg>
+              </button>
+            </div>
+          </div>
         {/each}
       </div>
     </div>

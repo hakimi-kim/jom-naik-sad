@@ -1,5 +1,6 @@
 <script lang="ts">
   import AppHeader from '$lib/components/AppHeader.svelte';
+	import DriverHeader from '$lib/components/DriverHeader.svelte';
   import { ArrowLeft, Send } from 'lucide-svelte';
 
   let newMessage = '';
@@ -37,13 +38,10 @@ Stay in Touch: Let us know ASAP if you have any changes or delays.\n
   ];
 </script>
 
-<svelte:head>
-  <title>Ride Chat · Jom Naik</title>
-</svelte:head>
 
 <div class="min-h-screen bg-background flex flex-col">
 
-  <AppHeader />
+  <DriverHeader />
 
   <!-- Chat Header -->
   <div class="border-b border-border/60 bg-card px-4 py-3">

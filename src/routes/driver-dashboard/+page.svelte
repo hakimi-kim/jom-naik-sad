@@ -1,15 +1,14 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import AppHeader from '$lib/components/AppHeader.svelte';
   import StatusBadge from '$lib/components/StatusBadge.svelte';
   import { activeRide } from '$lib/stores/rideState';
   import { driverApplicationStatus } from '$lib/stores/driverStatus';
+	import DriverHeader from '$lib/components/DriverHeader.svelte';
 </script>
 
-<svelte:head><title>Dashboard – IIUM Ride</title></svelte:head>
 
 <div class="min-h-screen bg-background pb-12">
-  <AppHeader />
+  <DriverHeader />
   <main class="container mx-auto max-w-2xl space-y-6 px-4 py-6">
 
     <section>
@@ -21,7 +20,7 @@
       <a href="/browse-request"
         class="group block rounded-3xl border border-border/60 bg-card p-5 shadow-card transition-all hover:shadow-elevated">
         <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary-soft text-primary">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
         </div>
         <h3 class="mt-4 text-base font-semibold text-foreground">Browse Request</h3>
         <p class="mt-1 text-sm text-muted-foreground">Find passengers headed your way</p>
@@ -29,7 +28,7 @@
       <a href="/create-offer"
         class="group block rounded-3xl border border-border/60 bg-card p-5 shadow-card transition-all hover:shadow-elevated">
         <div class="flex h-11 w-11 items-center justify-center rounded-2xl bg-secondary-soft text-secondary">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </div>
         <h3 class="mt-4 text-base font-semibold text-foreground">Create Offer</h3>
         <p class="mt-1 text-sm text-muted-foreground">Post a route with seats available</p>
@@ -40,7 +39,7 @@
     <section>
       <div class="mb-3 flex items-center justify-between">
         <h2 class="text-sm font-semibold text-foreground">Active ride</h2>
-        {#if $activeRide?.status === 'MATCHED'}
+        {#if $activeRide?.status === 'MATCHED' || $activeRide?.status === 'PUBLISH'}
           <a href="/ride/active" class="text-xs font-medium text-primary hover:underline">View details →</a>
         {/if}
       </div>
@@ -113,7 +112,32 @@
             </span>
           </div>
         </a>
+      {:else if $activeRide.status === 'PUBLISH'}
+        <a href="/ride/active-driver"
+          class="block rounded-3xl border border-border/60 bg-card p-5 shadow-card transition-all hover:shadow-elevated">
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-secondary"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              <span class="text-sm font-semibold text-foreground">{$activeRide.from} → {$activeRide.to}</span>
+            </div>
+            <StatusBadge status="MATCHED" />
+          </div>
+          <div class="mt-4 flex items-center gap-4 text-sm text-muted-foreground">
+            <span class="inline-flex items-center gap-1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              {$activeRide.time}
+            </span>
+            <span class="inline-flex items-center gap-1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              {$activeRide.seats} seats
+            </span>
+            <span class="inline-flex items-center gap-1.5 font-medium text-foreground">
+              RM {$activeRide.price}
+            </span>
+          </div>
+        </a>
       {/if}
+
     </section>
 
     <section class="rounded-3xl bg-gradient-soft p-5">

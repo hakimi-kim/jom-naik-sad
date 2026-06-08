@@ -41,7 +41,6 @@
   }
 </script>
 
-<svelte:head><title>Finding Driver · IIUM Ride</title></svelte:head>
 
 <div class="min-h-screen bg-background pb-12">
   <AppHeader />

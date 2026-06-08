@@ -81,10 +81,6 @@ showToast(`${driver?.name} registration rejected`, 'error');
 
 </script>
 
-<svelte:head>
-  <title>Jom Naik!</title>
-</svelte:head>
-
 <div class="min-h-screen bg-background pb-12">
   <AdminHeader />
 

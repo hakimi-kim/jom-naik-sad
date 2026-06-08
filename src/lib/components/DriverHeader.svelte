@@ -196,49 +196,31 @@
               Edit profile
             </button>
 
-            <!-- Driver status item -->
-            {#if $driverApplicationStatus === 'none'}
-              <button
-                onclick={() => { closeDropdown(); goto('/register-driver'); }}
-                class="flex w-full items-center gap-3 px-4 py-2.5 text-sm text-foreground hover:bg-muted transition-colors"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l2-3h8l2 3h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2z"/><circle cx="12" cy="13" r="2"/></svg>
-                Apply as driver
-              </button>
-
-            {:else if $driverApplicationStatus === 'pending'}
-              <div class="flex items-center gap-3 px-4 py-2.5 text-sm text-amber-600">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                Driver application pending
+            <!-- Role switcher -->
+            <div class="px-4 py-2 border-t border-border/60">
+              <p class="text-xs font-semibold text-muted-foreground mb-1.5">Switch role</p>
+              <div class="flex flex-col gap-1">
+                <button
+                  onclick={() => { closeDropdown(); goto('/passenger-dashboard'); }}
+                  class="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-foreground hover:bg-muted transition-colors"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                  Passenger
+                </button>
+                <button
+                  onclick={() => { closeDropdown(); goto('/driver-dashboard'); }}
+                  class="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-foreground hover:bg-muted transition-colors"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l2-3h8l2 3h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2z"/><circle cx="12" cy="13" r="2"/></svg>
+                  Driver
+                </button>
               </div>
-
-            {:else if $driverApplicationStatus === 'approved'}
-              <!-- Role switcher -->
-              <div class="px-4 py-2 border-t border-border/60">
-                <p class="text-xs font-semibold text-muted-foreground mb-1.5">Switch role</p>
-                <div class="flex flex-col gap-1">
-                  <button
-                    onclick={() => { closeDropdown(); goto('/passenger-dashboard'); }}
-                    class="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-foreground hover:bg-muted transition-colors"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-                    Passenger
-                  </button>
-                  <button
-                    onclick={() => { closeDropdown(); goto('/driver-dashboard'); }}
-                    class="flex items-center gap-2 rounded-xl px-3 py-2 text-sm font-medium text-foreground hover:bg-muted transition-colors"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l2-3h8l2 3h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2z"/><circle cx="12" cy="13" r="2"/></svg>
-                    Driver
-                  </button>
-                </div>
-              </div>
-            {/if}
+            </div>
 
             <!-- Sign out -->
             <div class="border-t border-border/60 mt-1 pt-1">
               <button
-                onclick={() => { closeDropdown(); goto('/login');showToast('Sign Out Successfully');}}
+                onclick={() => { closeDropdown(); showToast('Sign out successfully'); goto('/login'); }}
                 class="flex w-full items-center gap-3 px-4 py-2.5 text-sm text-destructive hover:bg-red-400 hover:text-white transition-colors"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>

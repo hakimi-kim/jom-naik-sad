@@ -42,16 +42,18 @@
   let carPhoto: File | null = null;
   let carPhotoPreview: string = "https://www.google.com/imgres?q=honda%20car%20images&imgurl=https%3A%2F%2Fc.ndtvimg.com%2F2022-05%2Fqtbvtv9g_car_625x300_13_May_22.jpg&imgrefurl=https%3A%2F%2Fwww.carandbike.com%2Fnews%2Franking-the-10-fastest-honda-sports-cars-ever-2972720&docid=6JPOBwQ9jgqtoM&tbnid=2uKOfCYxLPZfWM&vet=12ahUKEwjb8tCIi_OUAxUuRmcHHdESGTwQnPAOegQIchAB..i&w=1280&h=853&hcb=2&ved=2ahUKEwjb8tCIi_OUAxUuRmcHHdESGTwQnPAOegQIchAB";
 
-  async function handleSubmit(e: SubmitEvent) {
-    e.preventDefault();
-    // TODO: call your API
-    driverApplicationStatus.set('pending'); 
-    goto('/passenger-dashboard');
-showToast('Driver application submitted');
-  }
+async function handleSubmit(e: SubmitEvent) {
+  e.preventDefault();
+  driverApplicationStatus.set('pending');
+  showToast('Driver application submitted');
+  goto('/passenger-dashboard');
+
+  setTimeout(() => {
+    driverApplicationStatus.set('approved');
+  }, 5000);
+}
 </script>
 
-<svelte:head><title>Register as Driver – IIUM Ride</title></svelte:head>
 
 <div class="min-h-screen bg-background pb-12">
   <AppHeader />
