@@ -125,7 +125,7 @@
 
         <button
           type="submit"
-          class="h-12 w-full rounded-xl bg-gradient-hero text-base font-semibold text-white shadow-card hover:opacity-95 transition-opacity"
+          class="h-12 w-full rounded-xl bg-blue-500 text-base font-semibold text-white shadow-card hover:opacity-95 transition-opacity"
         >
           Register 
         </button>
