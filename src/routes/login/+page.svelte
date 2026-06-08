@@ -35,8 +35,8 @@
   <div class="mx-auto w-full max-w-md animate-fade-in py-12">
 
     <div class="mb-8 flex flex-col items-center text-center">
-      <div class="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-hero shadow-elevated">
-      <div class="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-hero shadow-elevated">
+      <div class="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-700 shadow-elevated">
+      <div class="mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-700 shadow-elevated">
         <Car class="w-5 h-5"/>
       </div>
       </div>
