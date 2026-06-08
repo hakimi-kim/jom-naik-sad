@@ -32,7 +32,7 @@
 	<div class="flex gap-2">
 		<button
 			onclick={() => onApprove(driver.id)}
-			class="flex-1 rounded-xl bg-green-500 py-2 font-medium text-white"
+			class="flex-1 rounded-xl bg-blue-500 py-2 font-medium text-white"
 		>
 			✓ Approve
 		</button>

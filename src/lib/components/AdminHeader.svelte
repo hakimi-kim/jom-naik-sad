@@ -52,6 +52,7 @@
   import { onMount } from 'svelte';
   // import { Inbox } from 'lucide-svelte';
   import { showToast } from '$lib/toast';
+	import { Car } from 'lucide-svelte';
 
   let {
     title = 'IIUM Ride',
@@ -98,7 +99,7 @@
 
   // Subtitle under header title
   const roleLabel = $derived(
-    $driverApplicationStatus === 'approved' ? 'Driver · Campus Transport' : 'Passenger · Campus Transport'
+    $driverApplicationStatus === 'approved' ? 'Admin · Campus Transport' : 'Admin · Campus Transport'
   );
 
   let inboxOpen = $state(false);
@@ -140,16 +141,16 @@
           aria-label="Back"
           class="flex h-9 w-9 items-center justify-center rounded-xl text-foreground hover:bg-muted transition-colors"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
+          <Car class="w-5 h-5"/>
         </button>
       {:else}
-        <a href="/passenger-dashboard" class="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-hero text-white shadow-card" aria-label="Home">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h1l2-3h8l2 3h1a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2z"/><circle cx="12" cy="13" r="2"/></svg>
+        <a href="/admin-dashboard" class="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-700 text-white shadow-card" aria-label="Home">
+          <Car class="w-5 h-5"/>
         </a>
       {/if}
       <div class="leading-tight">
         <p class="text-sm font-semibold text-foreground">{title}</p>
-        <p class="text-xs text-muted-foreground">{roleLabel}</p>
+        <p class="text-xs text-muted-foreground">Admin · Campus Transport</p>
       </div>
     </div>
 
