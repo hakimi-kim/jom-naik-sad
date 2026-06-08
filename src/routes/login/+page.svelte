@@ -78,12 +78,11 @@
             />
 
             <div class="text-right">
-              <a
-                href="/forgot-password"
+              <p
                 class="hover:text-blue-600 text-black underline text-center text-sm"
               >
                 Forgot password or email?
-              </a>
+            </p>
             </div>
           </div>
         </div>
